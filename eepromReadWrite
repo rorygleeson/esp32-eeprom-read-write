@@ -1,0 +1,52 @@
+void eepromReadWrite()
+{
+  
+   
+  #define EEPROM_SIZE 5
+   
+
+  if (!EEPROM.begin(EEPROM_SIZE))
+    {
+        Serial.println("failed to initialise EEPROM"); delay(1000000);
+    }
+  
+  Serial.println(" Read bytes from Flash . Values are:");
+  
+  for (int i = 0; i < EEPROM_SIZE; i++)
+  {
+        Serial.print(byte(EEPROM.read(i))); Serial.print(" ");
+  }
+
+  Serial.println();
+  Serial.println("Now going to write to flash");
+
+
+  for (int j = 0; j < EEPROM_SIZE; j++)
+  {
+      // int val = byte(random(10020));
+      int val = j;
+      Serial.print(val); Serial.print(" ");
+      EEPROM.write(j, val);
+      delay(100);
+     
+
+    }
+
+  Serial.println();
+  Serial.println("Now commit to flash");
+
+  EEPROM.commit();
+  Serial.println();
+  Serial.println("Now read it back. Values are:");
+
+  for (int k = 0; k < EEPROM_SIZE; k++)
+  {
+     Serial.print(byte(EEPROM.read(k))); Serial.print(" ");
+  }
+  
+  Serial.println(); Serial.println("--------- DONE ---------------");
+  
+
+}
+
+
